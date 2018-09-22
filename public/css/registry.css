@@ -1,0 +1,68 @@
+.header-custom:before{
+	content: "";
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	background: url(../img/Design.png);
+	background-size: contain;
+	background-attachment: local;
+	background-repeat: no-repeat;
+}
+
+.header-custom{
+  position:relative;
+  overflow:hidden;
+  display:flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  align-content: flex-start;
+  height:747px;
+  max-width:100%;
+  color:#eee;
+}
+
+.unah-color{
+  background-color: #002484;
+}
+
+.nav-image{
+  height: auto;
+  width: auto;
+  max-height: 72px;
+  max-width: 250px;
+}
+
+.unah-tx-color{
+  color: #002484;
+}
+
+.thumb-img{
+  height: auto;
+  width: auto;
+  max-height: 200px;
+  max-width: 242px;
+}
+
+.thumb-cont{
+	height: 200px;
+	width: 290px;
+}
+
+.thumb-custom{
+	display: block; 
+	margin-left: auto; 
+	margin-right: auto;
+}
+
+.footer-custom{
+  padding: 30px 20px 30px 20px;
+  color: #fff;
+  background-color: #002484;
+}
+
+.footer-copyright{
+  padding: 10px 30px 5px 30px;
+  color: #fff;
+  background-color: #031a58;
+}

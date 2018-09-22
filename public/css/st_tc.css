@@ -1,0 +1,55 @@
+.unah-color{
+    background-color: #002484!important;
+}
+
+.unah-color-light{
+    background-color: #1A3A91!important;
+}
+
+.unah-text{
+    color: white!important;
+}
+
+.unah-text-blue{
+    color: #002484!important;
+}
+
+.thumb-img{
+    height: auto;
+    width: auto;
+    max-height: 200px;
+    max-width: 242px;
+  }
+  
+  .thumb-cont{
+      height: 200px;
+      width: 290px;
+  }
+  
+  .thumb-custom{
+      display: block; 
+      margin-left: auto; 
+      margin-right: auto;
+  }
+
+  .footer-custom{
+    padding: 30px 20px 30px 20px;
+    color: #fff;
+    background-color: #002484;
+  }
+
+  .footer-copyright{
+    padding: 10px 30px 5px 30px;
+    color: #fff;
+    background-color: #031a58;
+  }
+
+  .unah-border-color{
+    border-color: #002484!important;
+}
+
+.unah-card-color{
+    background-color: #002484!important;
+}
+
+

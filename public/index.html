@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>BIOMEDICS Management</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/bmMain.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="css/bootstrap.min.css" />
+    <link rel="shortcut icon" type="image/png" href="assets/favicon.png" />
+    
+</head>
+<body>
+    <header>
+
+    </header>
+    <main>
+        <div class="container">
+            <div class="container-fluid">
+                <div class="row center-div margin-custom">
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 align-self-center">
+                        <img src="assets/Logo biomedics management.png" alt="Logo BIOMEDICS Management">
+                    </div>
+                    <div id="flex-custom" class="d-flex justify-content-center align-self-center">
+                        <div class="vl"></div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 align-self-center">
+                        <form class="center-login">
+                            <div class="form-group row">
+                                <h2 for="inputID" class="col-12">Iniciar sesión</h2>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputID">ID Empleado</label>
+                                <input type="text" class="form-control col-custom col-6" id="IDempleado" placeholder="ID Empleado">
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPassword">Contraseña</label>
+                                <input type="password" class="form-control col-custom col-6" id="Passwordempleado" placeholder="Contraseña">
+                            </div>
+                            <span class="d-flex">
+                            <a href="#" role="button" data-toggle="modal" data-target="#md-solicitud">Solicitar acceso</a>
+                            </span><br>
+                            <a href="techs/techs.html" id="btn-login" class="btn btn-primary" role="button" style="color: white !important">Iniciar sesión</a>
+                            <button type="button" id="btn-login-jefe" class="btn btn-success"data-toggle="modal" data-target="#md-login-jefe">Login Jefe</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="footer">
+        <div class="container-fluid footer-custom footer-fontsize">
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div>
+                        <center>Sistema de Gestión de Equipo Médico.</center>
+                    </div>
+                </div>						
+            </div>
+        </div>
+        <div class="container-fluid footer-copyright">
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div>
+                        <center>© 2018 Copyright - Hospital María</center>
+                    </div>
+                </div>						
+            </div>
+        </div>
+    </footer>
+    <!-- Modal Solicitar acceso-->
+	<div class="modal fade" id="md-solicitud" tabindex="-1" role="dialog" aria-labelledby="LoginEstudiante" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Solicitar acceso a BIOMEDICS Management</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">ID</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" placeholder="xxxx-xxxx-xxxxx">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Nombre</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Apellido</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Edad</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Sexo</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Fecha nacimiento</label>
+                        <div class="col-sm-9">
+                            <input type="date" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Dirección</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Teléfono</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Nacionalidad</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" id="btn-login-student" class="btn btn-primary">Enviar solicitud</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal login jefe-->
+	<div class="modal fade" id="md-login-jefe" tabindex="-1" role="dialog" aria-labelledby="LoginEstudiante" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Login Jefe BIOMEDICS Management</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <label for="inputIDjefe" class="col-sm-3 col-form-label">ID Empleado</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="inputIDjefe" placeholder="ID Empleado">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputPasswordjefe" class="col-sm-3 col-form-label">Contraseña</label>
+                        <div class="col-sm-9">
+                            <input type="password" class="form-control" id="inputPasswordjefe" placeholder="Contraseña">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <a href="techs/bosses.html" role="button" id="btn-login-student" class="btn btn-primary" style="color: white !important">Iniciar Sesión</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Forgot password-->
+	<!--<div class="modal fade" id="md-forgot-pass" tabindex="-1" role="dialog" aria-labelledby="LoginEstudiante" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Recuperar contrasena</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <textarea id="myText">
+                        Lorem ipsum...
+                    </textarea>
+                    <button onclick="sendMail(); return false">Send</button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" id="btn-login-student" class="btn btn-primary">Iniciar Sesión</button>
+                </div>
+            </div>
+        </div>
+    </div>-->
+</body>
+<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="js/bmMain.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+</html>

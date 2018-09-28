@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>BIOMEDICS Management - Jefes</title>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="../css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="../css/dashboard.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="../css/st_tc.css" />
+    <link rel="stylesheet" type="text/css" href="../DataTables/datatables.min.css" />
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png" />
+
+  </head>
+
+  <body>
+      <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 unah-color">
+        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">BIOMEDICS Management - Jefes</a>
+        <ul class="navbar-nav px-3">
+          <li class="nav-item text-nowrap">
+            <a class="nav-link" href="#" role="button" onclick="logout()"><span data-feather="log-out"></span> Cerrar Sesion</a>
+          </li>
+        </ul>
+      </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+       <nav class="col-md-2 d-none d-md-block sidebar" id="sidebr">
+          <div class="sidebar-sticky unah-color-light">
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a class="nav-link" href="#" id="btn-principal">
+                  <span data-feather="home"></span>
+                  Pagina Principal <span class="sr-only">(current)</span>
+                </a>
+              </li>
+              <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="collapse" data-target="#AsignaturasDrop" aria-expanded="false" aria-controls="AsignaturasDrop">
+                        <span data-feather="book-open"></span>
+                        Solicitudes
+                    </a>
+                    <div class="collapse" id="AsignaturasDrop">
+                        <div class="card card-body">
+                        <a class="dropdown-item unah-text-blue" href="#" id="btn-solicitud-acceso"><span data-feather="log-in"></span><b> Solicitud de acceso</b></a>
+                        <a class="dropdown-item unah-text-blue" href="#" id="btn-cambio-pass"><span data-feather="lock"></span><b> Cambio de contraseña</b></a>
+                        </div>
+                    </div>
+                </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" id="btn-ingresar-equipo">
+                  <span data-feather="database"></span>
+                  Ingresar equipo médico
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" id="btn-historial-equipo">
+                  <span data-feather="archive"></span>
+                  Historial de mantenimiento
+                </a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+
+       <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4" id="PagePrincipal">
+
+         <div class="jumbotron" style="margin-bottom: 0rem;">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <label for="stInfo"><h2>Mi Información</h2></label>
+                    <table id="stInfo" class="table table-sm">
+                      <thead>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>ID Empleado:</td>
+                          <td>Lorem ipsum</td>
+                        </tr>
+                        <tr>
+                          <td>Nombre:</td>
+                          <td>Juan Perez</td>
+                        </tr>
+                        <tr>
+                          <td>Departamento:</td>
+                          <td>Biomedica</td>
+                        </tr>
+                        <tr>
+                          <td>Cargo:</td>
+                          <td>El mero jefecito</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          <canvas class="my-4" id="myChart" width="900" height="380"></canvas>
+        </main>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4" id="PageSolicitud" style="display: none">
+          <div class="jumbotron" style="margin-bottom: 0rem;">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                  <label for="stInfo"><h2>Información del solicitante</h2></label>
+                  <table id="stInfo" class="table table-sm">
+                    <thead>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>ID Empleado:</td>
+                        <td><input type="text" name="lname" value="lorem ipsum" disabled></td>
+                      </tr>
+                      <tr>
+                        <td>Nombre:</td>
+                        <td><input type="text" name="lname" value="Juan Perez" disabled></td>
+                      </tr>
+                      <tr>
+                        <td>Departamento:</td>
+                        <td><input type="text" name="lname" value="Biomedica" disabled></td>
+                      </tr>
+                      <tr>
+                        <td>Cargo:</td>
+                        <td><input type="text" name="lname" value="El mero jefecito" disabled></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <button type="button" class="btn btn-warning">Otorgar acceso</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </main>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4" id="PageCambioPass" style="display: none">
+            <div class="jumbotron" style="margin-bottom: 0rem;">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                      <label for="stInfo"><h2>Información del solicitante</h2></label>
+                      <table id="stInfo" class="table table-sm">
+                        <thead>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>ID Empleado:</td>
+                            <td><input type="text" name="lname" value="lorem ipsum" disabled></td>
+                          </tr>
+                          <tr>
+                            <td>Nombre:</td>
+                            <td><input type="text" name="lname" value="Juan Perez" disabled></td>
+                          </tr>
+                          <tr>
+                            <td>Departamento:</td>
+                            <td><input type="text" name="lname" value="Biomedica" disabled></td>
+                          </tr>
+                          <tr>
+                            <td>Cargo:</td>
+                            <td><input type="text" name="lname" value="El mero jefecito" disabled></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <button type="button" class="btn btn-warning">Otorgar acceso</button>
+                    </div>
+                </div>
+              </div>
+            </div>
+        </main>
+
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4" id="Ingresar-equipo" style="display: none">
+            <div class="jumbotron" style="margin-bottom: 0rem;">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12" style="padding-top: 5px">
+                    <div class="card unah-border-color">
+                      <div class="card-header unah-card-color text-white">
+                        <label for="miTabla1"><h2>Equipos ingresados</h2></label>
+                      </div>
+                      <div class="card-body">
+                        <table id="miTabla1" class="table table-striped table-bordered table-hover" >
+                          <thead>
+                            <tr>
+                              <th>Name</th>
+                              <th>Position</th>
+                              <th data-class-name="priority">Salary</th>
+                              <th>Start date</th>
+                              <th>Office</th>
+                              <th>Extn</th>
+                            </tr>							
+                          </thead>
+                          <tbody>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <span id="campo-equipo">
+                
+            </span>
+            <button type="button" class="btn btn-primary my-4" id="btn-generar-equipo">Generar campo para ingresar equipo</button>
+        </main>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4" id="Historial-equipo" style="display: none">
+          <h1>Buscar Equipo y agregar historial de mantenimiento</h1>
+          <div class="input-group my-3">
+            <input type="text" class="form-control col-6" placeholder="ID Equipo" aria-label="ID equipo" id="txt-id-equipo" aria-describedby="basic-addon2">
+            <div class="input-group-append">
+              <button class="btn btn-outline-primary" type="button" id="btn-buscar-equipo">Buscar</button>
+            </div>
+          </div>
+        </main>
+
+        </div>
+      </div>
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script type="text/javascript" src="../js/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="../js/popper.min.js"></script>
+    <script type="text/javascript" src="../js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../DataTables/datatables.min.js"></script>
+    <script type="text/javascript" src="../js/pdfmake.min.js"></script>
+    <script type="text/javascript" src="../js/vfs_fonts.js"></script>
+    <script type="text/javascript" src="../js/buttons.html5.min.js"></script>
+    <script type="text/javascript" src="../js/buttons.print.min.js"></script>
+    <script type="text/javascript" src="../js/teachers-controller.js"></script>
+    <script type="text/javascript" src="../js/feather.min.js"></script>
+    <script>
+      feather.replace()
+    </script>
+
+    <!-- Graphs -->
+    <script src="../js/Chart.bundle.min.js"></script>
+  </body>
+</html>

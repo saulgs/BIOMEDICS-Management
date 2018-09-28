@@ -25,23 +25,22 @@
                         <div class="vl"></div>
                     </div>
                     <div class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 align-self-center">
-                        <form class="center-login">
+                        <form id="frm-login" class="center-login">
                             <div class="form-group row">
                                 <h2 for="inputID" class="col-12">Iniciar sesión</h2>
                             </div>
                             <div class="form-group">
                                 <label for="inputID">ID Empleado</label>
-                                <input type="text" class="form-control col-custom col-6" id="IDempleado" placeholder="ID Empleado">
+                                <input type="text" class="form-control col-custom col-6" name="id" placeholder="ID Empleado" required>
                             </div>
                             <div class="form-group">
                                 <label for="inputPassword">Contraseña</label>
-                                <input type="password" class="form-control col-custom col-6" id="Passwordempleado" placeholder="Contraseña">
+                                <input type="password" class="form-control col-custom col-6" name="contrasena" placeholder="Contraseña" required>
                             </div>
                             <span class="d-flex">
                             <a href="#" role="button" id="btn-modal-solicitud" data-toggle="modal" data-target="#md-solicitud">Solicitar acceso</a>
                             </span><br>
-                            <a href="techs/techs.html" id="btn-login" class="btn btn-primary" role="button" style="color: white !important">Iniciar sesión</a>
-                            <button type="button" id="btn-login-jefe" class="btn btn-success"data-toggle="modal" data-target="#md-login-jefe">Login Jefe</button>
+                            <input type="submit" role="button" id="btn-login" class="btn btn-primary" onclick="login()" value="Iniciar sesión">
                         </form>
                     </div>
                 </div>
@@ -167,9 +166,6 @@
                             <input type="submit" role="button" id="btn-solicitud" class="btn btn-primary" onclick="solicitarAcceso()" value="Enviar solicitud">
                         </div>
                     </form>
-                    <span id="msg-modal" style="display: none">
-                        <h3>Solicitud enviada con éxito</h3>
-                    </span>
                 </div>
             </div>
         </div>
@@ -186,23 +182,19 @@
                     </button>
                 </div>
                 <div class="modal-body">
+                <form id="frm-pass">
                     <div class="form-group row">
-                        <label for="inputIDjefe" class="col-sm-3 col-form-label">ID Empleado</label>
+                        <label for="Idpass" class="col-sm-3 col-form-label">ID Empleado</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="inputIDjefe" placeholder="ID Empleado">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="inputPasswordjefe" class="col-sm-3 col-form-label">Contraseña</label>
-                        <div class="col-sm-9">
-                            <input type="password" class="form-control" id="inputPasswordjefe" placeholder="Contraseña">
+                            <input type="text" class="form-control" id="Idpass" name="id"  placeholder="ID">
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <a href="techs/bosses.html" role="button" id="btn-login-student" class="btn btn-primary" style="color: white !important">Iniciar Sesión</a>
-                </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <a  role="button" id="btn-login-student" class="btn btn-primary" style="color: white !important">Iniciar Sesión</a>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

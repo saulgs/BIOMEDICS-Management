@@ -81,6 +81,39 @@ function solicitarAcceso(){
     });
 }
 
+function login(){
+    $(document).off('submit');
+
+    $(document).one('submit', function(){
+        var id = "#frm-login";
+        var parametros = $(id).serialize();
+        //console.log(parametros);
+
+        $.ajax({
+            url:"/auth/login",
+            data: parametros,
+            method:"POST",
+            dataType:"json",
+            success: function(respuesta){
+                //console.log(respuesta);
+                if(respuesta.status == 1){
+                    $(location).attr('href', respuesta.url);
+                } else if(respuesta.status == 2) {
+                    $(id).find("input[type=text], input[type=password]").val("");
+                    alert(respuesta.mensaje);
+                } else {
+                    $(id).find("input[type=text], input[type=password]").val("");
+                    alert("Credenciales inválidas");
+                }
+            },
+            error: function (e) {
+                alert("Ocurrió el siguiente error: "+JSON.stringify(e));
+            }
+        });
+
+        return false;
+    });
+}
 
 function sendMail() {
     var link = "mailto:sgs319@hotmail.com"

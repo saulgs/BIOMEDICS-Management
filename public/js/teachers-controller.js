@@ -1,8 +1,34 @@
 $(document).ready(function(){
     //console.log("Main Jefes");
+    verificarSesion();
     lineGraph();
     
 });
+
+function verificarSesion(){
+    $.ajax({
+		url:"/auth/getSessionBoss",
+		method:"POST",
+		dataType:"json",
+		success:function(respuesta){
+            //console.log(respuesta);
+            if(respuesta.status == 0){
+                $("body").html(
+                    `<div style="margin: 25px 0px 0px 25px">
+                        <h2>${respuesta.mensaje}</h2><br>
+                        <h3>Redireccionando a pagina principal...</h3><br>
+                    </div>`
+                );
+                setTimeout(function(){ 
+                    $(location).attr('href',"/index.html"); 
+                }, 3000);
+            }
+        },
+		error:function(e){
+			console.log("Error: " + JSON.stringify(e));
+		}
+    });
+}
 
 
 
@@ -262,6 +288,8 @@ var data = [
     }
 ];
 
+
+
 $("#miTabla1").DataTable({
     dom: 'lBfrtip',
     buttons: [
@@ -287,7 +315,7 @@ $("#miTabla1").DataTable({
 var fieldTool = 0;
 $("#btn-generar-equipo").click(function(){
     $.ajax({
-		url:"/techs/bosses/obtener-datos-esp",
+		url:"/bosses/obtener-datos-esp",
 		method:"POST",
 		success: function(respuesta){
 			//console.log(respuesta);
@@ -464,7 +492,6 @@ $("#btn-generar-equipo").click(function(){
 });
 
 
-
 function guardarEquipo(x){
     $(document).off('submit');
 
@@ -473,7 +500,7 @@ function guardarEquipo(x){
         var parametros = $(id).serialize();
 
         $.ajax({
-            url:"/techs/bosses/ingresar-equipo",
+            url:"/bosses/ingresar-equipo",
             data:parametros,
             method:"POST",
             dataType:"json",
@@ -485,12 +512,21 @@ function guardarEquipo(x){
             error: function (e) {
                 alert("Ocurrió el siguiente error:"+JSON.stringify(e));
             }
-        });
-
-        
-        //console.log(vals);
-        
+        });        
         return false;
     });
+}
 
-}   
+function logout(){
+    $.ajax({
+        url:"/auth/logout",
+        method:"GET",
+        dataType:"json",
+        success: function(respuesta){
+            $(location).attr('href', respuesta.url);
+        },
+        error: function (e) {
+            alert("Ocurrió el siguiente error:"+JSON.stringify(e));
+        }
+    });
+}

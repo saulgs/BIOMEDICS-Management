@@ -72,6 +72,88 @@ router.post("/ingresar-equipo", urlEncodeParser, function(req, res) {
     });
 });
 
+router.post("/obtener-equipo", urlEncodeParser, function(req, res) {
+    var sql = `SELECT a.codigo_equipo_medico AS codigo, 
+                b.tipo_manual AS manual, 
+                a.nombre AS nombre, 
+                a.modelo AS modelo, 
+                a.serie AS serie, 
+                a.codigo_hospital AS ch, 
+                a.marca AS marca, 
+                a.ubicacion AS ub, 
+                a.tipo_adquisicion AS ta, 
+                a.fabricante AS fab, 
+                a.distribuidor AS dist 
+                FROM tbl_equipo_medico a
+                INNER JOIN tbl_tipo_manual b
+                ON a.codigo_tipo_manual_fk = b.codigo_tipo_manual
+                WHERE a.codigo_hospital = ?`;
+
+    var values = [req.body.id];
+
+    realizarQuery(sql, values, function(response){
+        res.send(response);
+    });
+});
+
+router.post("/obtener-tmant", urlEncodeParser, function(req, res) {
+    var sql = `SELECT codigo_tipo_mantenimiento AS codigo, tipo_mantenimiento AS tipo FROM tbl_tipo_mantenimiento`;
+    var values = [];
+
+    realizarQuery(sql, values, function(response){
+        res.send(response);
+    });
+});
+
+router.post("/mant-x-eq", urlEncodeParser, function(req, res){
+    var sql = `SELECT b.id_empleado AS id, c.tipo_mantenimiento AS mant, a.descripcion_mant AS des, a.fecha AS fecha 
+                FROM tbl_mantenimiento a
+                INNER JOIN tbl_empleados b
+                ON a.codigo_empleado_fk = b.codigo_empleado
+                INNER JOIN tbl_tipo_mantenimiento c
+                ON a.codigo_tipo_mantenimiento_fk = c.codigo_tipo_mantenimiento
+                WHERE a.codigo_equipo_medico_fk = ?`;
+
+    var values = [req.body.codigo];
+
+    realizarQuery(sql, values, function(response){
+        res.send(response);
+    });
+
+});
+
+router.post("/ultimo-mant", urlEncodeParser, function(req, res){
+    var sql = `SELECT a.codigo_mantenimiento, b.id_empleado AS id, c.tipo_mantenimiento AS mant, a.descripcion_mant AS des, a.fecha AS fecha 
+                FROM tbl_mantenimiento a
+                INNER JOIN tbl_empleados b
+                ON a.codigo_empleado_fk = b.codigo_empleado
+                INNER JOIN tbl_tipo_mantenimiento c
+                ON a.codigo_tipo_mantenimiento_fk = c.codigo_tipo_mantenimiento
+                WHERE a.codigo_equipo_medico_fk = ?
+                ORDER BY a.codigo_mantenimiento DESC LIMIT 1`;
+
+    var values = [req.body.codigo];
+
+    realizarQuery(sql, values, function(response){
+        res.send(response);
+    });
+
+});
+
+router.post("/ingresar-mant", urlEncodeParser, function(req, res) {
+    var sql = `INSERT INTO tbl_mantenimiento(codigo_empleado_fk, 
+                                            codigo_equipo_medico_fk, 
+                                            codigo_tipo_mantenimiento_fk, 
+                                            descripcion_mant, 
+                                            fecha) 
+                VALUES (?, ?, ?, ?, SYSDATE())`;
+    var values = [req.body.codigoId, req.body.codigo, req.body.tmant, req.body.mantenimiento];
+
+    realizarQuery(sql, values, function(response){
+        res.send(response);
+    });
+});
+
 router.post("/obtener-datos-esp", urlEncodeParser, function(req, res) {
 
     var sql = `SELECT codigo_tipo_alimentacion AS codigo, tipo_alimentacion AS tipo FROM tbl_tipo_alimentacion

@@ -57,7 +57,7 @@ router.post('/login', urlEncodeParser, function(req, res){
 
     var hash = sha512(req.body.contrasena);
     var pass = hash.toString('hex');
-    var sql = `SELECT a.id_empleado AS id, a.codigo_cargo_fk AS cargo, a.contrasena, b.estatus_acceso AS estatus 
+    var sql = `SELECT a.codigo_empleado AS codigo, a.id_empleado AS id, a.codigo_cargo_fk AS cargo, a.contrasena, b.estatus_acceso AS estatus 
                 FROM tbl_empleados a
                 INNER JOIN tbl_solicitud_acceso b
                 ON a.codigo_empleado = b.codigo_empleado_fk 
@@ -70,11 +70,13 @@ router.post('/login', urlEncodeParser, function(req, res){
                 req.session.id = response[0].id;
                 req.session.codigoCargo = response[0].cargo;
                 req.session.estatus = response[0].estatus;
+                res.cookie('codigo', response[0].codigo);
                 res.cookie('id', response[0].id);
                 res.send({status:1, mensaje:"Accedio correctamente", url:"bosses/bosses.html"});
             } else if (response[0].cargo == 2){
                 req.session.id = response[0].id;
                 req.session.codigoCargo = response[0].cargo;
+                res.cookie('codigo', response[0].codigo);
                 res.cookie('id', response[0].id);
                 res.send({status:1, mensaje:"Accedio correctamente", url:"techs/techs.html"});
             }

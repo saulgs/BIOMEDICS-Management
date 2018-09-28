@@ -66,40 +66,8 @@
         </nav>
 
        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4" id="PagePrincipal">
-
-         <div class="jumbotron" style="margin-bottom: 0rem;">
-              <div class="container-fluid">
-                <div class="row">
-                  <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <label for="stInfo"><h2>Mi Información</h2></label>
-                    <table id="stInfo" class="table table-sm">
-                      <thead>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>ID Empleado:</td>
-                          <td>Lorem ipsum</td>
-                        </tr>
-                        <tr>
-                          <td>Nombre:</td>
-                          <td>Juan Perez</td>
-                        </tr>
-                        <tr>
-                          <td>Departamento:</td>
-                          <td>Biomedica</td>
-                        </tr>
-                        <tr>
-                          <td>Cargo:</td>
-                          <td>El mero jefecito</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          <canvas class="my-4" id="myChart" width="900" height="380"></canvas>
+        <span id="tbl-info"></span> 
+            <canvas class="my-4" id="myChart" width="900" height="380"></canvas>
         </main>
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4" id="PageSolicitud" style="display: none">
@@ -108,38 +76,15 @@
         </main>
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4" id="PageCambioPass" style="display: none">
-            <div class="jumbotron" style="margin-bottom: 0rem;">
-              <div class="container-fluid">
-                <div class="row">
-                  <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                      <label for="stInfo"><h2>Información del solicitante</h2></label>
-                      <table id="stInfo" class="table table-sm">
-                        <thead>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>ID Empleado:</td>
-                            <td><input type="text" name="lname" value="lorem ipsum" disabled></td>
-                          </tr>
-                          <tr>
-                            <td>Nombre:</td>
-                            <td><input type="text" name="lname" value="Juan Perez" disabled></td>
-                          </tr>
-                          <tr>
-                            <td>Departamento:</td>
-                            <td><input type="text" name="lname" value="Biomedica" disabled></td>
-                          </tr>
-                          <tr>
-                            <td>Cargo:</td>
-                            <td><input type="text" name="lname" value="El mero jefecito" disabled></td>
-                          </tr>
-                        </tbody>
-                      </table>
-                      <button type="button" class="btn btn-warning">Otorgar acceso</button>
-                    </div>
-                </div>
-              </div>
+          <h1>Buscar empleado y cambiar contraseña</h1>
+          <div class="input-group my-3">
+            <input type="text" class="form-control col-6" placeholder="ID Empleado" aria-label="ID empleado" id="txt-id-pass" aria-describedby="basic-addon2">
+            <div class="input-group-append">
+              <button class="btn btn-outline-primary" type="button" id="btn-buscar-pass">Buscar</button>
             </div>
+          </div>
+          <span id="cmp-pass">
+          </span>
         </main>
 
 
@@ -182,11 +127,17 @@
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4" id="Historial-equipo" style="display: none">
           <h1>Buscar Equipo y agregar historial de mantenimiento</h1>
           <div class="input-group my-3">
-            <input type="text" class="form-control col-6" placeholder="ID Equipo" aria-label="ID equipo" id="txt-id-equipo" aria-describedby="basic-addon2">
+            <input type="text" class="form-control col-6" placeholder="Codigo de hospital de equipo" aria-label="ID equipo" id="txt-id-equipo" aria-describedby="basic-addon2">
+            <input type="text" id="txt-equipo" hidden>
+            <input type="text" id="txt-codigo-equipo" hidden>
             <div class="input-group-append">
               <button class="btn btn-outline-primary" type="button" id="btn-buscar-equipo">Buscar</button>
             </div>
           </div>
+          <button class="btn btn-primary" type="button" id="btn-mant">Agregar mantenimiento</button>
+          <span id="cmp-historial"></span>
+          <span id="cmp-new-mant"></span>
+          <span id="cmp-historias"></span>
         </main>
 
         </div>

@@ -1,6 +1,7 @@
 $(document).ready(function(){
     //console.log("Main Jefes");
     verificarSesion();
+    myInfo();
     lineGraph();
     
 });
@@ -30,7 +31,58 @@ function verificarSesion(){
     });
 }
 
+function myInfo(){
+    var id = getCookie('id');
+    var data = "id=" + id;
 
+    $.ajax({
+        url:"/solicitud/myInfo",
+        data: data,
+		method:"POST",
+		dataType:"json",
+		success:function(respuesta){
+            //console.log(respuesta);
+            if(respuesta.length == 1){
+                $("#tbl-info").append(
+                `<div class="jumbotron" style="margin-bottom: 0rem;">
+                    <div class="container-fluid">
+                      <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                          <label for="stInfo"><h2>Mi Información</h2></label>
+                          <table id="stInfo" class="table table-sm">
+                            <thead>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>ID Empleado:</td>
+                                <td>${respuesta[0].id}</td>
+                              </tr>
+                              <tr>
+                                <td>Nombre:</td>
+                                <td>${respuesta[0].nombre}</td>
+                              </tr>
+                              <tr>
+                                <td>Departamento:</td>
+                                <td>${respuesta[0].departamento}</td>
+                              </tr>
+                              <tr>
+                                <td>Cargo:</td>
+                                <td>${respuesta[0].cargo}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                </div>`
+                );
+            }
+        },
+		error:function(e){
+			console.log("Error: " + JSON.stringify(e));
+		}
+    });
+}
 
 /*$("#btn-toggle").click(function(){
     $("#sidebr").toggle(function() {
@@ -78,7 +130,7 @@ function lineGraph(){
 }
 
 $("#btn-solicitud-acceso").click(function(){
-    $("#cmp-acceso").html();
+    $("#cmp-acceso").html("");
     var cookie = getCookie('id');
     $.ajax({
         url:"/solicitud/user-req",
@@ -140,7 +192,82 @@ $("#btn-solicitud-acceso").click(function(){
     });
 });
 
+$("#btn-buscar-pass").click(function(){
+    $("#cmp-pass").html("");
+
+    var data = "id="+$("#txt-id-pass").val();
+
+    $.ajax({
+        url:"/solicitud/user-search",
+        data:data,
+        method:"POST",
+        dataType:"json",
+        success: function(respuesta){
+            if(respuesta.length > 0){
+                for(let i=0; i<respuesta.length; i++){
+                    $("#txt-id-pass").val("");
+                    $("#cmp-pass").append(
+                    `<div class="jumbotron my-4">
+                        <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <label for="stInfo"><h2>Información del empleado</h2></label>
+                            <table id="stInfo" class="table table-sm">
+                                <thead>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>ID Empleado:</td>
+                                    <td id="id-pass-${i}">${respuesta[i].id}</td>
+                                </tr>
+                                <tr>
+                                    <td>Nombre:</td>
+                                    <td>${respuesta[i].nombre}</td>
+                                </tr>
+                                <tr>
+                                    <td>Departamento:</td>
+                                    <td>${respuesta[i].departamento}</td>
+                                </tr>
+                                <tr>
+                                    <td>Cargo:</td>
+                                    <td>${respuesta[i].cargo}</td>
+                                </tr>
+                                <tr>
+                                    <td>Acceso:</td>
+                                    <td id="obs-${i}">${respuesta[i].obs}</td>
+                                </tr>
+                                <tr>
+                                    <td>Nueva contraseña:</td>
+                                    <td><input type="password" class="form-control col-custom col-6" id="txt-pass-1" placeholder="Contraseña"></td>
+                                </tr>
+                                <tr>
+                                    <td>Repita la contraseña:</td>
+                                    <td><input type="password" class="form-control col-custom col-6" id="txt-pass-2" placeholder="Contraseña"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <button type="button" class="btn btn-success" onclick="cambiarPass(${i})">Cambiar contraseña</button>
+                            </div>
+                        </div>
+                        </div>
+                    </div>`
+                    );
+                }
+            } else {
+                $("#cmp-pass").html(
+                    `<h2>No existe el empleado que está buscando</h2>`
+                );
+            }
+        },
+        error: function (e) {
+            alert("Ocurrió el siguiente error:"+JSON.stringify(e));
+        }
+    });
+});
+
 $("#btn-cambio-pass").click(function(){
+    $("#cmp-pass").html("");
+    $("#txt-id-pass").val("");
     $("main").fadeOut(200,function(){
         $("#PageCambioPass").fadeIn(200);
     });
@@ -153,9 +280,11 @@ $("#btn-ingresar-equipo").click(function(){
 });
 
 $("#btn-historial-equipo").click(function(){
+    $("#btn-mant").prop('disabled', true);
     $("main").fadeOut(200,function(){
         $("#Historial-equipo").fadeIn(200);
     });
+    $("#btn-mant").prop('disabled', true);
 });
 
 $("#btn-principal").click(function(){
@@ -164,7 +293,205 @@ $("#btn-principal").click(function(){
     });
 });
 
+$("#btn-buscar-equipo").click(function(){
+    var data = "id="+ $("#txt-id-equipo").val();
+    $("#txt-equipo").val($("#txt-id-equipo").val());
+    //console.log($("#txt-equipo").val());
+    $("#cmp-historial").html("");
+    $("#cmp-historias").html("");
+    $("#txt-codigo-equipo").val("");
 
+    var promise = $.ajax({
+        url:"/bosses/obtener-equipo",
+        data:data,
+        method:"POST",
+        dataType:"json",
+        success: function(respuesta){
+            //console.log(respuesta);
+            if(respuesta.length > 0){
+                $("#txt-codigo-equipo").val(respuesta[0].codigo);
+                $("#btn-mant").prop('disabled', false);
+                //console.log($("#txt-codigo-equipo").val());
+                $("#cmp-historial").append(
+                `<div class="jumbotron my-4">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <label for="stInfo"><h2>Información del equipo</h2></label>
+                            <table id="stInfo" class="table table-sm">
+                                <thead>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>Nombre:</td>
+                                    <td>${respuesta[0].nombre}</td>
+                                </tr>
+                                <tr>
+                                    <td>Modelo:</td>
+                                    <td>${respuesta[0].modelo}</td>
+                                </tr>
+                                <tr>
+                                    <td>Serie:</td>
+                                    <td>${respuesta[0].serie}</td>
+                                </tr>
+                                <tr>
+                                    <td>Código hospital:</td>
+                                    <td>${respuesta[0].ch}</td>
+                                </tr>
+                                <tr>
+                                    <td>Marca:</td>
+                                    <td>${respuesta[0].marca}</td>
+                                </tr>
+                                <tr>
+                                    <td>Ubicacion:</td>
+                                    <td>${respuesta[0].ub}</td>
+                                </tr>
+                                <tr>
+                                    <td>Tipo de adquisicion:</td>
+                                    <td>${respuesta[0].ta}</td>
+                                </tr>
+                                <tr>
+                                    <td>Fabricante:</td>
+                                    <td>${respuesta[0].fab}</td>
+                                </tr>
+                                <tr>
+                                    <td>Distribuidor:</td>
+                                    <td>${respuesta[0].dist}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>`
+                );
+            } else {
+                $("#btn-mant").prop('disabled', true);
+                $("#cmp-historial").html(
+                    `<h2>No existe el equipo que está buscando</h2>`
+                );
+            }
+        },
+        error: function (e) {
+            alert("Ocurrió el siguiente error:"+JSON.stringify(e));
+        }
+    });
+    promise.then(function(){
+        if($("#txt-codigo-equipo").val() != ""){
+            var data = "codigo="+$("#txt-codigo-equipo").val();
+
+            $.ajax({
+                url:"/bosses/mant-x-eq",
+                data:data,
+                method:"POST",
+                dataType:"json",
+                success: function(respuesta){
+                    //console.log(respuesta);
+                    if(respuesta.length > 0){
+                        for(let i=0; i<respuesta.length; i++){
+                            $("#cmp-historias").prepend(
+                            `<div class="jumbotron my-4">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                        <label for="stInfo"><h2>Historia de mantenimiento ${i + 1} del equipo ${$("#txt-id-equipo").val()}</h2></label>
+                                        <table id="stInfo" class="table table-sm">
+                                            <thead>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>ID Empleado que realizó el mantenimiento:</td>
+                                                <td>${respuesta[i].id}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Tipo de mantenimiento:</td>
+                                                <td>${respuesta[i].mant}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Fecha del mantenimiento:</td>
+                                                <td>${respuesta[i].fecha}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Historia del mantenimiento:</td>
+                                                <td>${respuesta[i].des}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>`
+                            );
+                        }
+                    } else {
+                        $("#cmp-historias").html(
+                            `<h2>No existe historial de mantenimiento para este equipo</h2>`
+                        );
+                    }
+                },
+                error: function (e) {
+                    alert("Ocurrió el siguiente error:"+JSON.stringify(e));
+                }
+            });
+        }
+    });       
+});
+
+
+$("#btn-mant").click(function(){
+    $("#cmp-new-mant").html("");
+
+    $.ajax({
+        url:"/bosses/obtener-tmant",
+        data:data,
+        method:"POST",
+        dataType:"json",
+        success: function(respuesta){
+            //console.log(respuesta);
+            if(respuesta.length > 0){
+                $("#cmp-new-mant").append(
+                `<div class="jumbotron my-4">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                <form id="frm-mant">
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Tipo de mantenimiento</label>
+                                        <div class="col-sm-4">
+                                            <select id="slc-tmant" class="form-control" name="tmant" required>
+                                                <option disabled selected value> Seleccione </option>
+                                                <option value="${respuesta[0].codigo}">${respuesta[0].tipo}</option>
+                                                <option value="${respuesta[1].codigo}">${respuesta[1].tipo}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Historia</label>
+                                        <div class="col-sm-10">
+                                            <textarea rows="10" cols="50" class="form-control" id="ta-mant" name="mantenimiento" wrap="off" form="frm-mant" placeholder="Ingrese aqui la historia de mantenimiento"></textarea>
+                                        </div>
+                                    </div>
+                                    <input type="submit" role="button" class="btn btn-success" onclick="guardarMant()" value="Guardar mantenimiento">
+                                    <button type="button" class="btn btn-primary" onclick="cerrarMant()">Cerrar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>`
+                );
+            } else {
+                alert("Ingrese de forma manual través de phpMyAdmin los tipos de mantenimiento en la BD, en la tabla tbl_tipo_mantenimiento");
+            }
+        },
+        error: function (e) {
+            alert("Ocurrió el siguiente error:"+JSON.stringify(e));
+        }
+    });
+});
+
+function cerrarMant(){
+    $("#cmp-new-mant").html("");    
+}
 
 var data = [
     {
@@ -474,7 +801,7 @@ $("#btn-generar-equipo").click(function(){
                           </div>
                           <label class="col-sm-2 col-form-label">Voltaje de trabajo AC</label>
                           <div class="col-sm-3">
-                              <input type="text" id="txt-ac-${fieldTool}" class="form-control" name="ac" required>
+                              <input type="text" id="txt-ac-${fieldTool}" class="form-control" name="ac" maxlength="5" required>
                           </div>
                         </div>
                         <div class="form-group row">
@@ -484,7 +811,7 @@ $("#btn-generar-equipo").click(function(){
                           </div>
                           <label class="col-sm-2 col-form-label">Voltaje de trabajo DC</label>
                           <div class="col-sm-3">
-                              <input type="text" id="txt-dc-${fieldTool}" class="form-control" name="dc" required>
+                              <input type="text" id="txt-dc-${fieldTool}" class="form-control" name="dc" maxlength="5" required>
                           </div>
                         </div>
                         <div class="form-group row">
@@ -494,7 +821,7 @@ $("#btn-generar-equipo").click(function(){
                           </div>
                           <label class="col-sm-2 col-form-label">Potencia</label>
                           <div class="col-sm-3">
-                              <input type="text" id="txt-potencia-${fieldTool}" class="form-control" name="pt" required>
+                              <input type="text" id="txt-potencia-${fieldTool}" class="form-control" name="pt" maxlength="10" required>
                           </div>
                         </div>
                         <div class="form-group row">
@@ -504,7 +831,7 @@ $("#btn-generar-equipo").click(function(){
                           </div>
                           <label class="col-sm-2 col-form-label">Corriente máxima</label>
                           <div class="col-sm-3">
-                              <input type="text" id="txt-cm-${fieldTool}" class="form-control" name="cm" required>
+                              <input type="text" id="txt-cm-${fieldTool}" class="form-control" name="cm" maxlength="10" required>
                           </div>
                         </div>
                         <div class="form-group row">
@@ -514,7 +841,7 @@ $("#btn-generar-equipo").click(function(){
                           </div>
                           <label class="col-sm-2 col-form-label">Frecuencia eléctrica</label>
                           <div class="col-sm-3">
-                              <input type="text" id="txt-freq-${fieldTool}" class="form-control" name="freq" required>
+                              <input type="text" id="txt-freq-${fieldTool}" class="form-control" name="freq" maxlength="10" required>
                           </div>
                         </div>
                         <div class="form-group row">
@@ -563,8 +890,10 @@ function guardarEquipo(x){
             dataType:"json",
             success: function(respuesta){
                 //console.log(respuesta);
-                $(id).html(`<h2>Equipo guardado con éxito</h2>`);
-                $(id).delay(3000).fadeOut(200);
+                if(respuesta.affectedRows > 0){
+                    $(id).html(`<h2>Equipo guardado con éxito</h2>`);
+                    $(id).delay(3000).fadeOut(200);
+                }
             },
             error: function (e) {
                 alert("Ocurrió el siguiente error:"+JSON.stringify(e));
@@ -572,6 +901,111 @@ function guardarEquipo(x){
         });        
         return false;
     });
+}
+
+function guardarMant(){
+    $(document).off('submit');
+
+    $(document).one('submit', function() {
+        
+        var mantenimiento = $("#ta-mant").val();
+        if(mantenimiento != ""){
+            var id = "#frm-mant";
+            var parametros = $(id).serialize();
+            var data = "&codigo="+ $("#txt-codigo-equipo").val() +"&"+
+                        "codigoId=" + getCookie('codigo');
+            parametros += data;
+            //console.log(parametros);
+
+            $.ajax({
+                url:"/bosses/ingresar-mant",
+                data:parametros,
+                method:"POST",
+                dataType:"json",
+                success: function(respuesta){
+                    //console.log(respuesta);"
+                    if(respuesta.affectedRows == 1){
+                        $(id).find("select, textarea").val("");
+                        ultimoMant();
+                        $("#cmp-new-mant").html(`<h2>Se ingreso la historia de mantenimiento correctamente</h2>`);
+                        setTimeout(function(){
+                            $("#cmp-new-mant").html(""); 
+                        }, 3000);
+                    } else {
+                        alert("ERROR: El equio no se ingresó");
+                    }
+                },
+                error: function (e) {
+                    alert("Ocurrió el siguiente error:"+JSON.stringify(e));
+                }
+            }); 
+
+        } else {
+            alert("Llene al campo de historia de mantenimiento o cierre el formulario");
+        }
+            
+        return false;
+    });
+}
+
+function ultimoMant(){
+    if($("#txt-codigo-equipo").val() != ""){
+        var data = "codigo="+$("#txt-codigo-equipo").val();
+
+        $.ajax({
+            url:"/bosses/ultimo-mant",
+            data:data,
+            method:"POST",
+            dataType:"json",
+            success: function(respuesta){
+                //console.log(respuesta);
+                if(respuesta.length > 0){
+                    for(let i=0; i<respuesta.length; i++){
+                        $("#cmp-historias").prepend(
+                        `<div class="jumbotron my-4">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                    <label for="stInfo"><h2>Ultima historia de mantenimiento ingresada del equipo ${$("#txt-id-equipo").val()}</h2></label>
+                                    <table id="stInfo" class="table table-sm">
+                                        <thead>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>ID Empleado que realizó el mantenimiento:</td>
+                                            <td>${respuesta[i].id}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tipo de mantenimiento:</td>
+                                            <td>${respuesta[i].mant}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Fecha del mantenimiento:</td>
+                                            <td>${respuesta[i].fecha}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Historia del mantenimiento:</td>
+                                            <td>${respuesta[i].des}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`
+                        );
+                    }
+                } else {
+                    $("#cmp-historias").html(
+                        `<h2>No existe historial de mantenimiento para este equipo</h2>`
+                    );
+                }
+            },
+            error: function (e) {
+                alert("Ocurrió el siguiente error:"+JSON.stringify(e));
+            }
+        });
+    }
 }
 
 function logout(){
@@ -648,4 +1082,41 @@ function quitarAcceso(x){
             alert("Ocurrió el siguiente error:"+JSON.stringify(e));
         }
     });
+}
+
+
+
+function cambiarPass(x){
+    var id = "#id-pass-"+ x;
+    var cont1 = $("#txt-pass-1").val();
+    var cont2 = $("#txt-pass-2").val();
+
+    if(cont1 == cont2){
+        var data = "id="+$(id).text()+"&"+
+                "pass="+cont2;
+        
+        $.ajax({
+            url:"/solicitud/cambiarPass",
+            data:data,
+            method:"POST",
+            dataType:"json",
+            success: function(respuesta){
+                //console.log(respuesta);
+                if(respuesta.affectedRows == 1){
+                    $("#cmp-pass").html(`<h2>Se cambio la contraseña correctamente</h2>`);
+                    setTimeout(function(){
+                        $("#cmp-pass").html(""); 
+                    }, 3000);
+                }
+            },
+            error: function (e) {
+                alert("Ocurrió el siguiente error:"+JSON.stringify(e));
+            }
+        });
+    } else {
+        alert("Las contrasenas no coinciden, ingreselas de nuevo");
+        $("#txt-pass-1").val(""); 
+        $("#txt-pass-2").val("");
+    }
+
 }

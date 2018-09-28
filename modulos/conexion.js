@@ -72,7 +72,7 @@ exports.QueryIEM = function(sql, values, sql2, values2, callback){
 }
 
 
-exports.realizarQrCB = function(sql, arreglo, sql2, arreglo2, callback) {
+exports.realizarQrCB = function(sql, arreglo, sql2, arreglo2, sql3, arreglo3, callback) {
 
   //  connection.query( 'SELECT * FROM some_table', ( err, rows ) => {
   // do something with the results here
@@ -81,16 +81,37 @@ exports.realizarQrCB = function(sql, arreglo, sql2, arreglo2, callback) {
 
   conexion.query(sql, arreglo, (err, result) => {
     if (err) {
+      console.log("Error 1: "+err);
       throw err;
     } else {
-      conexion.query('select codUsuario from tblusuarios order by codUsuario desc limit 1', (err, result) => {
+      conexion.query('SELECT codigo_persona AS persona FROM tbl_persona ORDER BY codigo_persona DESC LIMIT 1', (err, result) => {
         if (err) {
+          console.log("Error 2: "+err);
           throw err;
         } else {
-          arreglo2.push(result[0].codUsuario);
+          arreglo2.push(result[0].persona);
           conexion.query(sql2, arreglo2, (err, result) => {
-            if (err) throw err;
-            callback(result);
+            if (err){
+              console.log("Error 3: "+err);
+              throw err;
+            } else {
+              conexion.query('SELECT codigo_empleado AS empleado FROM tbl_empleados ORDER BY codigo_empleado DESC LIMIT 1', (err, result) => {
+                if (err) {
+                  console.log("Error 4: "+err);
+                  throw err;
+                } else {
+                  arreglo3.push(result[0].empleado);
+                  conexion.query(sql3, arreglo3, (err, result) => {
+                    if (err) {
+                      console.log("Error 5: "+err);
+                      throw err;
+                    } else {
+                      callback(result);                      
+                    }
+                  });
+                }
+              });
+            }
           });
         }
       });

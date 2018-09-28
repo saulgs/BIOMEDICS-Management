@@ -18,7 +18,7 @@ var urlEncodeParser = bodyParser.urlencoded({
 router.use(bodyParser.json());
 
 router.post("/ingresar-equipo", urlEncodeParser, function(req, res) {
-    sql = `INSERT INTO tbl_datos_tecnicos (codigo_tipo_alimentacion_fk, 
+    var sql = `INSERT INTO tbl_datos_tecnicos (codigo_tipo_alimentacion_fk, 
                                             codigo_relacion_paciente_fk, 
                                             codigo_funcion_maquina_fk, 
                                             codigo_uso_especifico_fk, 
@@ -31,7 +31,7 @@ router.post("/ingresar-equipo", urlEncodeParser, function(req, res) {
                                             modo_funcionamiento, 
                                             parametro_medicion) 
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-    values = [req.body.ta,
+    var values = [req.body.ta,
         req.body.rp,
         req.body.fm,
         req.body.ue,
@@ -44,7 +44,7 @@ router.post("/ingresar-equipo", urlEncodeParser, function(req, res) {
         req.body.mf,
         req.body.pm];
 
-    sql2 = `INSERT INTO tbl_equipo_medico(codigo_tipo_manual_fk, 
+    var sql2 = `INSERT INTO tbl_equipo_medico(codigo_tipo_manual_fk, 
                                             nombre, 
                                             modelo, 
                                             serie, 
@@ -56,7 +56,7 @@ router.post("/ingresar-equipo", urlEncodeParser, function(req, res) {
                                             distribuidor,  
                                             codigo_datos_tecnicos_fk) 
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-    values2 = [req.body.tm,
+    var values2 = [req.body.tm,
         req.body.nombre,
         req.body.modelo,
         req.body.serie,

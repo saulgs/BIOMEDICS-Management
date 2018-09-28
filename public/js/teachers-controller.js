@@ -1,8 +1,7 @@
 $(document).ready(function(){
-    console.log("Main Docentes");
+    //console.log("Main Jefes");
     lineGraph();
     
-    var fieldTool = 0;
 });
 
 
@@ -81,6 +80,8 @@ $("#btn-principal").click(function(){
         $("#PagePrincipal").fadeIn(200);
     });
 });
+
+
 
 var data = [
     {
@@ -289,7 +290,7 @@ $("#btn-generar-equipo").click(function(){
 		url:"/techs/bosses/obtener-datos-esp",
 		method:"POST",
 		success: function(respuesta){
-			console.log(respuesta);
+			//console.log(respuesta);
 			if(respuesta.length > 0){
                 $("#campo-equipo").append(
                     `<form id="ceq-${fieldTool}" class="col-10 jumbotron my-4">
@@ -470,7 +471,6 @@ function guardarEquipo(x){
     $(document).one('submit', function() {
         var id = "#ceq-" + x;
         var parametros = $(id).serialize();
-        console.log("Holis");
 
         $.ajax({
             url:"/techs/bosses/ingresar-equipo",
@@ -478,7 +478,7 @@ function guardarEquipo(x){
             method:"POST",
             dataType:"json",
             success: function(respuesta){
-                console.log(respuesta);
+                //console.log(respuesta);
                 $(id).html(`<h2>Equipo guardado con éxito</h2>`);
                 $(id).delay(3000).fadeOut(200);
             },

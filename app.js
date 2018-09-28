@@ -3,6 +3,7 @@ var path = require('path');
 var app = express();
 
 var ingresarEM = require('./routes/ingresar-em');
+var access = require('./routes/access');
 
 /*
  * En los imports esta var ingresarEM = require('./routes/ingresar-em')
@@ -29,7 +30,7 @@ app.use('/', express.static(__dirname + "/public/"));
  */
 
 app.use('/techs/bosses', ingresarEM);
-
+app.use('/access', access);
 
 app.listen(3000, () => {
     console.log('Servidor iniciado en el puerto 3000.');

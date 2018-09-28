@@ -4,6 +4,7 @@ var app = express();
 
 var ingresarEM = require('./routes/ingresar-em');
 var access = require('./routes/access');
+var solicitud = require('./routes/solicitudes');
 var auth = require('./routes/authentication');
 
 /*
@@ -32,6 +33,7 @@ app.use('/', express.static(__dirname + "/public/"));
 
 app.use('/bosses', ingresarEM);
 app.use('/access', access);
+app.use('/solicitud', solicitud);
 app.use('/auth', auth);
 
 app.listen(3000, () => {

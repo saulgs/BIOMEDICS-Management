@@ -22,18 +22,6 @@ router.use(session({secret:'sesionBM', resave:true, saveUninitialized:true}));
 var bosses = express.static(__dirname+"/public/bosses/");
 var techs = express.static(__dirname+"/public/techs/");
 
-/*router.use(
-    function(req, res, next){
-        if (req.session.id){
-            if (req.session.codigoCargo == 1)
-                bosses(req, res, next);
-            else if (req.session.codigoCargo == 2)
-                techs(req, res, next);
-        }
-        else
-            return next();
-    }
-);*/
 
 /*
 * Esta función se agregó para la escalabilidad del sistema

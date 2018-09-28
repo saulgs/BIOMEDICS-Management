@@ -78,6 +78,63 @@ function lineGraph(){
 }
 
 $("#btn-solicitud-acceso").click(function(){
+    $("#cmp-acceso").html();
+    var cookie = getCookie('id');
+    $.ajax({
+        url:"/solicitud/user-req",
+        method:"POST",
+        dataType:"json",
+        success: function(respuesta){
+            for(let i=0; i<respuesta.length; i++){
+                if(respuesta[i].id != cookie){
+                    $("#cmp-acceso").prepend(
+                    `<div class="jumbotron my-4">
+                        <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <label for="stInfo"><h2>Información del solicitante</h2></label>
+                            <table id="stInfo" class="table table-sm">
+                                <thead>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>ID Empleado:</td>
+                                    <td id="id-${i}">${respuesta[i].id}</td>
+                                </tr>
+                                <tr>
+                                    <td>Nombre:</td>
+                                    <td>${respuesta[i].nombre}</td>
+                                </tr>
+                                <tr>
+                                    <td>Departamento:</td>
+                                    <td>${respuesta[i].departamento}</td>
+                                </tr>
+                                <tr>
+                                    <td>Cargo:</td>
+                                    <td>${respuesta[i].cargo}</td>
+                                </tr>
+                                <tr>
+                                    <td>Acceso:</td>
+                                    <td id="obs-${i}">${respuesta[i].obs}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <button type="button" class="btn btn-success" onclick="darAcceso(${i})">Otorgar acceso</button>
+                            <button type="button" class="btn btn-warning" onclick="quitarAcceso(${i})">Denegar acceso</button>
+                            <button type="button" class="btn btn-danger" onclick="eliminar(${i})" disabled>Eliminar usuario</button>
+                            </div>
+                        </div>
+                        </div>
+                    </div>`
+                    );
+                }
+            }
+        },
+        error: function (e) {
+            alert("Ocurrió el siguiente error:"+JSON.stringify(e));
+        }
+    });
+
     $("main").fadeOut(200,function(){
         $("#PageSolicitud").fadeIn(200);
     });
@@ -524,6 +581,68 @@ function logout(){
         dataType:"json",
         success: function(respuesta){
             $(location).attr('href', respuesta.url);
+        },
+        error: function (e) {
+            alert("Ocurrió el siguiente error:"+JSON.stringify(e));
+        }
+    });
+}
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
+function darAcceso(x){
+    var id = "#id-"+ x;
+    var obs = "#obs-"+ x;
+    var data = "id="+$(id).text();
+    //console.log(data);
+
+    $.ajax({
+        url:"/solicitud/otorgar",
+        data:data,
+        method:"POST",
+        dataType:"json",
+        success: function(respuesta){
+            //console.log(respuesta);
+            if(respuesta.affectedRows == 1){
+                $(obs).text("SI");
+            }
+        },
+        error: function (e) {
+            alert("Ocurrió el siguiente error:"+JSON.stringify(e));
+        }
+    });
+}
+
+function quitarAcceso(x){
+    var id = "#id-"+ x;
+    var obs = "#obs-"+ x;
+    var data = "id="+$(id).text();
+    //console.log(data);
+
+    $.ajax({
+        url:"/solicitud/quitar",
+        data:data,
+        method:"POST",
+        dataType:"json",
+        success: function(respuesta){
+            //console.log(respuesta);
+            if(respuesta.affectedRows == 1){
+                $(obs).text("NO");
+            }
         },
         error: function (e) {
             alert("Ocurrió el siguiente error:"+JSON.stringify(e));

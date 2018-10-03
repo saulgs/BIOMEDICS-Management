@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>BIOMEDICS Management - Técnicos</title>
+    <title>BIOMEDICS Management - Jefes</title>
 
     <link rel="stylesheet" type="text/css" media="screen" href="../css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="../css/dashboard.css" />
@@ -21,7 +21,7 @@
         <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">BIOMEDICS Management - Técnicos</a>
         <ul class="navbar-nav px-3">
           <li class="nav-item text-nowrap">
-            <a class="nav-link" href="../index.html"><span data-feather="log-out"></span> Cerrar Sesion</a>
+            <a class="nav-link" href="#" role="button" onclick="logout()"><span data-feather="log-out"></span> Cerrar Sesion</a>
           </li>
         </ul>
       </nav>
@@ -38,10 +38,16 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#" id="btn-ingresar-equipo">
-                  <span data-feather="database"></span>
-                  Ingresar equipo médico
-                </a>
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="collapse" data-target="#EquipoDrop" aria-expanded="false" aria-controls="EquipoDrop">
+                      <span data-feather="database"></span>
+                      Equipo médico
+                  </a>
+                  <div class="collapse" id="EquipoDrop">
+                      <div class="card card-body">
+                      <a class="dropdown-item unah-text-blue" href="#" id="btn-ingresar-equipo"><span data-feather="arrow-right-circle"></span><b> Ingresar equipo médico</b></a>
+                      <a class="dropdown-item unah-text-blue" href="#" id="btn-eoe-equipo"><span data-feather="edit"></span><b> Editar/eliminar equipo médico</b></a>
+                      </div>
+                  </div>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#" id="btn-historial-equipo">
@@ -54,39 +60,10 @@
         </nav>
 
        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4" id="PagePrincipal">
-
-         <div class="jumbotron" style="margin-bottom: 0rem;">
-              <div class="container-fluid">
-                <div class="row">
-                  <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <label for="stInfo"><h2>Mi Información</h2></label>
-                    <table id="stInfo" class="table table-sm">
-                      <thead>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>ID Empleado:</td>
-                          <td>Lorem ipsum</td>
-                        </tr>
-                        <tr>
-                          <td>Nombre:</td>
-                          <td>Juan Perez</td>
-                        </tr>
-                        <tr>
-                          <td>Departamento:</td>
-                          <td>Biomedica</td>
-                        </tr>
-                        <tr>
-                          <td>Cargo:</td>
-                          <td>El mero jefecito</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
+        <span id="tbl-info"></span>
+        <img src="../assets/LOGO_FUNDANIQUEM.jpg" alt="LOGO_FUNDANIQUEM" style="display: block; margin-top: 30px; margin-left: auto; margin-right: auto; width: 50%;">
         </main>
+
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4" id="Ingresar-equipo" style="display: none">
             <div class="jumbotron" style="margin-bottom: 0rem;">
@@ -98,20 +75,38 @@
                         <label for="miTabla1"><h2>Equipos ingresados</h2></label>
                       </div>
                       <div class="card-body">
-                        <table id="miTabla1" class="table table-striped table-bordered table-hover" >
+                        <div class="table-responsive">
+                        <table id="miTabla1" class="table table-striped table-bordered table-hover">
                           <thead>
                             <tr>
-                              <th>Name</th>
-                              <th>Position</th>
-                              <th data-class-name="priority">Salary</th>
-                              <th>Start date</th>
-                              <th>Office</th>
-                              <th>Extn</th>
+                              <th>Nombre</th>
+                              <th>Modelo</th>
+                              <th>Serie</th>
+                              <th>Tipo manual</th>
+                              <th>Codigo hospital</th>
+                              <th>Marca</th>
+                              <th>Ubicación</th>
+                              <th>Tipo adquisición</th>
+                              <th>Fabricante</th>
+                              <th>Distribuidor</th>
+                              <th>Tipo alimentación</th>
+                              <th>Relación paciente</th>
+                              <th>Función máquina</th>
+                              <th>Uso específico</th>
+                              <th>Movimiento equipo</th>
+                              <th>Voltaje AC</th>
+                              <th>Voltaje DC</th>
+                              <th>Potencia</th>
+                              <th>Corriente máxima</th>
+                              <th>Frecuencia</th>
+                              <th>Modo funcionamiento</th>
+                              <th>Parametro medición</th>
                             </tr>							
                           </thead>
                           <tbody>
                           </tbody>
                         </table>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -124,38 +119,77 @@
             <button type="button" class="btn btn-primary my-4" id="btn-generar-equipo">Generar campo para ingresar equipo</button>
         </main>
 
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4" id="Editar-equipo" style="display: none">
+          <h1>Buscar equipo (Editar o eliminar)</h1>
+          <div class="input-group my-3">
+            <input type="text" class="form-control col-6" placeholder="Codigo de hospital de equipo" aria-label="ID equipo" id="txt-ch-equipo" aria-describedby="basic-addon2">
+            <input type="text" id="txt-chequipo" hidden>
+            <input type="text" id="txt-codigodt" hidden>
+            <div class="input-group-append">
+              <button class="btn btn-outline-primary" type="button" id="btn-eoe-equipo" onclick="vrfExisteEQP()">Buscar</button>
+            </div>
+          </div>
+          <span id="cmp-eoe"></span>
+        </main>
+
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4" id="Historial-equipo" style="display: none">
           <h1>Buscar Equipo y agregar historial de mantenimiento</h1>
           <div class="input-group my-3">
-            <input type="text" class="form-control col-6" placeholder="ID Equipo" aria-label="ID equipo" id="txt-id-equipo" aria-describedby="basic-addon2">
+            <input type="text" class="form-control col-6" placeholder="Codigo de hospital de equipo" aria-label="ID equipo" id="txt-id-equipo" aria-describedby="basic-addon2">
+            <input type="text" id="txt-equipo" hidden>
+            <input type="text" id="txt-codigo-equipo" hidden>
             <div class="input-group-append">
               <button class="btn btn-outline-primary" type="button" id="btn-buscar-equipo">Buscar</button>
             </div>
           </div>
+          <button class="btn btn-primary" type="button" id="btn-mant">Agregar mantenimiento</button>
+          <span id="cmp-historial"></span>
+          <span id="cmp-new-mant"></span>
+          <span id="cmp-historias"></span>
+          <span id="cmp-historias-aviso"></span>
         </main>
 
         </div>
       </div>
 
+<!-- Modal advertencia-->
+<div class="modal fade" id="modal-advertencia" tabindex="-1" role="dialog" aria-labelledby="modal-advertenciaTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modal-advertenciaLongTitle"><span data-feather="alert-triangle"></span> Advertencia</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <span id="md-adv">
+              ¿Desea eliminar el equipo?<br>
+              Una vez que lo haga desaparecerá el equipo<br>
+              y sus historias de mantenimiento.
+            </span>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary" onclick="eliminarEquipo()">Eliminar</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script type="text/javascript" src="../js/jquery-3.3.1.js"></script>
-    <script type="text/javascript" src="../js/popper.min.js"></script>
-    <script type="text/javascript" src="../js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../DataTables/datatables.min.js"></script>
-    <script type="text/javascript" src="../js/pdfmake.min.js"></script>
-    <script type="text/javascript" src="../js/vfs_fonts.js"></script>
-    <script type="text/javascript" src="../js/buttons.html5.min.js"></script>
-    <script type="text/javascript" src="../js/buttons.print.min.js"></script>
-    <script type="text/javascript" src="../js/teachers-controller.js"></script>
-    <script type="text/javascript" src="../js/feather.min.js"></script>
-    <script>
-      feather.replace()
-    </script>
-
-    <!-- Graphs -->
-    <script src="../js/Chart.bundle.min.js"></script>
   </body>
+  <script type="text/javascript" src="../js/jquery-3.3.1.js"></script>
+  <script type="text/javascript" src="../js/popper.min.js"></script>
+  <script type="text/javascript" src="../js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="../DataTables/datatables.min.js"></script>
+  <script type="text/javascript" src="../js/pdfmake.min.js"></script>
+  <script type="text/javascript" src="../js/vfs_fonts.js"></script>
+  <script type="text/javascript" src="../js/buttons.html5.min.js"></script>
+  <script type="text/javascript" src="../js/buttons.print.min.js"></script>
+  <script type="text/javascript" src="../js/techs-controller.js"></script>
+  <script type="text/javascript" src="../js/feather.min.js"></script>
+  <script>
+    feather.replace()
+  </script>
+
 </html>

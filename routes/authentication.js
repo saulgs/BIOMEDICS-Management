@@ -38,17 +38,26 @@ function verificarAutenticacion(req, res, next){
 }
 
 function sesionBoss(req, res, next){
-    if (req.session.codigoCargo == 1)
+    if (req.session.codigoCargo == 1){
         bosses(req, res, next);
-    else
-        res.send({status:0, mensaje:"401 Acceso no autorizado"});
+    }else{
+        //res.send({status:0, mensaje:"401 Acceso no autorizado"});
+        req.session.status = 0;
+        req.session.mensaje = "401 Acceso no autorizado";
+        return next();
+    }
 }
 
 function sesionTech(req, res, next){
-    if (req.session.codigoCargo == 2)
+    if (req.session.codigoCargo == 2){
         techs(req, res, next);
-    else
-        res.send({status:0, mensaje:"401 Acceso no autorizado"});
+    }else{
+        //res.send({status:0, mensaje:"401 Acceso no autorizado"});
+        req.session.status = 0;
+        req.session.mensaje = "401 Acceso no autorizado";
+        return next();
+    }
+    
 }
 
 
@@ -73,9 +82,10 @@ router.post('/login', urlEncodeParser, function(req, res){
                 res.cookie('codigo', response[0].codigo);
                 res.cookie('id', response[0].id);
                 res.send({status:1, mensaje:"Accedio correctamente", url:"bosses/bosses.html"});
-            } else if (response[0].cargo == 2){
+            } if(response[0].cargo == 2){
                 req.session.id = response[0].id;
                 req.session.codigoCargo = response[0].cargo;
+                req.session.estatus = response[0].estatus;
                 res.cookie('codigo', response[0].codigo);
                 res.cookie('id', response[0].id);
                 res.send({status:1, mensaje:"Accedio correctamente", url:"techs/techs.html"});
@@ -93,6 +103,7 @@ router.post('/login', urlEncodeParser, function(req, res){
 
 router.get("/logout", function(req, res){
         res.clearCookie('id');
+        res.clearCookie('codigo');
 		req.session.destroy();
         res.send({status:1, mensaje:"Ha terminado la sesion", url: "/index.html"});
         
@@ -100,13 +111,20 @@ router.get("/logout", function(req, res){
 
 router.post('/getSessionBoss', verificarAutenticacion, function(req, res, next){
     sesionBoss(req, res, next);
-	res.send(JSON.stringify(req.session));
+    res.send(JSON.stringify(req.session));
 });
 
 router.post('/getSessionTechs', verificarAutenticacion, function(req, res, next){
     sesionTech(req, res, next);
-	res.send(JSON.stringify(req.session));
+    res.send(JSON.stringify(req.session));
 });
 
+router.post("/destroySession", function(req, res){
+    res.clearCookie('id');
+    res.clearCookie('codigo');
+    req.session.destroy();
+    res.send({status:1, mensaje:"Sesión destruida", url: "/index.html"});
+    
+});
 
 module.exports = router;

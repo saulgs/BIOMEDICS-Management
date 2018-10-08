@@ -56,27 +56,34 @@ function solicitarAcceso(){
     $(document).off('submit');
 
     $(document).one('submit', function(){
-        var id = "#frm-sa";
-        var parametros = $(id).serialize();
-        //console.log(parametros);
+        if($("#txt-identidad").hasClass("valido") && $("#txt-idemp").hasClass("valido")){
+            var id = "#frm-sa";
+            var parametros = $(id).serialize();
+            //console.log(parametros);
 
-        $.ajax({
-            url:"/access/solicitar",
-            data:parametros,
-            method:"POST",
-            dataType:"json",
-            complete: function(respuesta){
-                //console.log(respuesta);
-                if(respuesta.responseJSON.affectedRows == 1){
-                    $(id).find("input[type=text], select, input[type=date], input[type=password], input[type=radio]").val("").prop('checked', false);
-                    alert("Solicitud enviada con éxito");
-                    $('#md-solicitud').delay(3000).modal('hide');
-                }else if (respuesta.responseJSON.affectedRows == 0) {
-                    alert("Ocurrió un error: su solicitud no se ingresó");
+            $.ajax({
+                url:"/access/solicitar",
+                data:parametros,
+                method:"POST",
+                dataType:"json",
+                complete: function(respuesta){
+                    //console.log(respuesta);
+                    if(respuesta.responseJSON.affectedRows == 1){
+                        $(id).find("input[type=text], select, input[type=date], input[type=password], input[type=radio]").val("").prop('checked', false);
+                        $("#id-aviso").html(``);
+                        $("#idemp-aviso").html(``);
+                        $("#txt-identidad").removeClass("valido").addClass("invalido");
+                        $("#txt-idemp").removeClass("valido").addClass("invalido");
+                        alert("Solicitud enviada con éxito");
+                        $('#md-solicitud').delay(3000).modal('hide');
+                    }else if (respuesta.responseJSON.affectedRows == 0) {
+                        alert("Ocurrió un error: su solicitud no se ingresó");
+                    }
                 }
-            }
-        });
-
+            });
+        } else {
+            alert("Revise los datos ingresados");
+        }
         return false;
     });
 }
@@ -115,11 +122,52 @@ function login(){
     });
 }
 
-function sendMail() {
-    var link = "mailto:sgs319@hotmail.com"
-             + "?cc=sags320@gmail.com"
-             + "&subject=" + escape("This is my subject")
-             + "&body=" + escape(document.getElementById('myText').value);
+function cmprID(value){
+    var parametros = "id=" + value;
 
-    window.location.href = link;
+    $.ajax({
+        url:"/access/comprobar-id",
+        data: parametros,
+        method:"POST",
+        dataType:"json",
+        success: function(respuesta){
+            //console.log(respuesta);
+            if(respuesta.length == 0){
+                $("#txt-identidad").removeClass("invalido").addClass("valido");
+                $("#id-aviso").html(`<small class="form-text text-muted">ID válido.</small>`);
+            } else {
+                $("#txt-identidad").removeClass("valido").addClass("invalido");
+                $("#txt-identidad").val("");
+                $("#id-aviso").html(`<small class="form-text text-muted">ID existe, por favor ingrese uno diferente.</small>`);
+            }
+        },
+        error: function (e) {
+            alert("Ocurrió el siguiente error: "+JSON.stringify(e));
+        }
+    });
+}
+
+function cmprEMP(value){
+    var parametros = "id=" + value;
+
+    $.ajax({
+        url:"/access/comprobar-empleado",
+        data: parametros,
+        method:"POST",
+        dataType:"json",
+        success: function(respuesta){
+            //console.log(respuesta);
+            if(respuesta.length == 0){
+                $("#txt-idemp").removeClass("invalido").addClass("valido");
+                $("#idemp-aviso").html(`<small class="form-text text-muted">ID de empleado válido.</small>`);
+            } else {
+                $("#txt-idemp").removeClass("valido").addClass("invalido");
+                $("#txt-idemp").val("");
+                $("#idemp-aviso").html(`<small class="form-text text-muted">ID de empleado existe, por favor ingrese uno diferente.</small>`);
+            }
+        },
+        error: function (e) {
+            alert("Ocurrió el siguiente error: "+JSON.stringify(e));
+        }
+    });
 }

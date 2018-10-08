@@ -56,19 +56,6 @@ router.post('/solicitar', urlEncodeParser, function(req, res){
   var estatus = 0;
   var values3 = [estatus];
 
- /* var vs = `id=12&
-            nombre=asd&
-            apellido=asd&
-            edad=10&
-            sexo=masculino&
-            fechaN=2018-09-27&
-            direccion=qwe&
-            telefono=qwe&
-            nacionalidad=7&
-            idemp=1984&
-            cargo=2&
-            pass=1984`;
-*/
   realizarQrCB(sql, values, sql2, values2, sql3, values3, function(response){
       res.send(response); 
       //console.log("Desde /access/solicitar: "+ JSON.stringify(response)); 
@@ -93,6 +80,24 @@ router.post('/nacionalidad', urlEncodeParser, function(req, res){
 
   realizarQuery(sql, values, function(response){
       res.send(response);
+  });
+});
+
+router.post('/comprobar-id', urlEncodeParser, function(req, res){
+  var sql = `SELECT id_persona FROM tbl_persona WHERE id_persona = ?`;
+  var values = [req.body.id];
+
+  realizarQuery(sql, values, function(response){
+    res.send(response);
+  });
+});
+
+router.post('/comprobar-empleado', urlEncodeParser, function(req, res){
+  var sql = `SELECT id_empleado FROM tbl_empleados WHERE id_empleado = ?`;
+  var values = [req.body.id];
+
+  realizarQuery(sql, values, function(response){
+    res.send(response);
   });
 });
 

@@ -459,7 +459,7 @@ $("#btn-mant").click(function(){
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">Historia</label>
                                         <div class="col-sm-10">
-                                            <textarea rows="10" cols="50" class="form-control" id="ta-mant" name="mantenimiento" wrap="off" form="frm-mant" placeholder="Ingrese aqui la historia de mantenimiento"></textarea>
+                                            <textarea rows="10" cols="50" class="form-control" id="ta-mant" name="mantenimiento" wrap="off" form="frm-mant" placeholder="Ingrese aqui la historia de mantenimiento (máx.: 10,000 caracteres)" maxlength="9900"></textarea>
                                         </div>
                                     </div>
                                     <input type="submit" role="button" class="btn btn-success" onclick="guardarMant()" value="Guardar mantenimiento">

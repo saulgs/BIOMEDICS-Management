@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 03-10-2018 a las 09:53:52
+-- Tiempo de generación: 08-10-2018 a las 08:45:03
 -- Versión del servidor: 5.7.19
 -- Versión de PHP: 5.6.31
 
@@ -72,14 +72,7 @@ CREATE TABLE IF NOT EXISTS `tbl_datos_tecnicos` (
   KEY `fk_tbl_datos_tecnicos_tbl_funcion_maquina1_idx` (`codigo_funcion_maquina_fk`),
   KEY `fk_tbl_datos_tecnicos_tbl_uso_especifico1_idx` (`codigo_uso_especifico_fk`),
   KEY `fk_tbl_datos_tecnicos_tbl_mov_equipo1_idx` (`codigo_mov_equipo_fk`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `tbl_datos_tecnicos`
---
-
-INSERT INTO `tbl_datos_tecnicos` (`codigo_datos_tecnicos`, `codigo_tipo_alimentacion_fk`, `codigo_relacion_paciente_fk`, `codigo_funcion_maquina_fk`, `codigo_uso_especifico_fk`, `codigo_mov_equipo_fk`, `voltaje_trabajo_ac`, `voltaje_trabajo_dc`, `potencia`, `corriente_max`, `frec_electrica`, `modo_funcionamiento`, `parametro_medicion`) VALUES
-(22, 1, 1, 1, 1, 1, '120', '12', '25', '40', '60', 'No aplica', 'SPO2, NIBP, ECG, CGP');
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -118,7 +111,7 @@ CREATE TABLE IF NOT EXISTS `tbl_empleados` (
   UNIQUE KEY `id_empleado_UNIQUE` (`id_empleado`),
   KEY `fk_tbl_emplados_tbl_persona1_idx` (`codigo_persona_fk`),
   KEY `fk_tbl_emplados_tbl_cargos1_idx` (`codigo_cargo_fk`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `tbl_empleados`
@@ -126,8 +119,7 @@ CREATE TABLE IF NOT EXISTS `tbl_empleados` (
 
 INSERT INTO `tbl_empleados` (`codigo_empleado`, `id_empleado`, `codigo_persona_fk`, `codigo_cargo_fk`, `contrasena`) VALUES
 (26, '1234', 29, 1, 'd404559f602eab6fd602ac7680dacbfaadd13630335e951f097af3900e9de176b6db28512f2e000b9d04fba5133e8b1c6e8df59db3a8ab9d60be4b97cc9e81db'),
-(27, '1122', 30, 1, '3ffdb04bc5d544b2125b7052ecc718afebc78f34a598500fa96431acf482fa5e2c0b604d8db458c547b54f576cc5bda609b468f96263c90d5ddb10299203524a'),
-(28, '1123', 31, 2, '9c5407e659272602d26755e7b77a2dd015e9fb75c8ac3a8afb57d898e8abad3e8b394a67ee0bf95e9997de7e2439ad0078e6adc0f1060177eda28cc1be0203eb');
+(31, '1111', 34, 1, '33275a8aa48ea918bd53a9181aa975f15ab0d0645398f5918a006d08675c1cb27d5c645dbd084eee56e675e25ba4019f2ecea37ca9e2995b49fcb12c096a032e');
 
 -- --------------------------------------------------------
 
@@ -153,14 +145,7 @@ CREATE TABLE IF NOT EXISTS `tbl_equipo_medico` (
   PRIMARY KEY (`codigo_equipo_medico`),
   KEY `fk_tbl_equipo_medico_tbl_tipo_manual1_idx` (`codigo_tipo_manual_fk`),
   KEY `fk_tbl_equipo_medico_tbl_datos_tecnicos1_idx` (`codigo_datos_tecnicos_fk`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `tbl_equipo_medico`
---
-
-INSERT INTO `tbl_equipo_medico` (`codigo_equipo_medico`, `codigo_tipo_manual_fk`, `nombre`, `modelo`, `serie`, `codigo_hospital`, `marca`, `ubicacion`, `tipo_adquisicion`, `fabricante`, `distribuidor`, `manual`, `codigo_datos_tecnicos_fk`) VALUES
-(20, 1, 'Monitor de signos vitales', 'mennen', 'CZ-00123', '1.E.E0.01.MSV', 'Mindray', 'Recuperación', 'Donación', 'Mindray', 'Seijiro Yazawa Iwai', NULL, 22);
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -197,23 +182,13 @@ CREATE TABLE IF NOT EXISTS `tbl_mantenimiento` (
   `codigo_empleado_fk` int(11) DEFAULT NULL,
   `codigo_equipo_medico_fk` int(11) NOT NULL,
   `codigo_tipo_mantenimiento_fk` int(11) NOT NULL,
-  `descripcion_mant` varchar(1000) NOT NULL,
+  `descripcion_mant` varchar(10000) NOT NULL,
   `fecha` date NOT NULL,
   PRIMARY KEY (`codigo_mantenimiento`),
   KEY `fk_tbl_mantenimiento_tbl_emplados1_idx` (`codigo_empleado_fk`),
   KEY `fk_tbl_mantenimiento_tbl_equipo_medico1_idx` (`codigo_equipo_medico_fk`),
   KEY `fk_tbl_mantenimiento_tbl_tipo_mantenimiento1_idx` (`codigo_tipo_mantenimiento_fk`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `tbl_mantenimiento`
---
-
-INSERT INTO `tbl_mantenimiento` (`codigo_mantenimiento`, `codigo_empleado_fk`, `codigo_equipo_medico_fk`, `codigo_tipo_mantenimiento_fk`, `descripcion_mant`, `fecha`) VALUES
-(1, 27, 20, 1, 'Cambio de cables troncales y sensores', '2018-09-28'),
-(2, 27, 20, 1, 'Limpieza', '2018-09-28'),
-(3, 27, 20, 1, 'Cambio de puerto de ECG', '2018-09-28'),
-(8, 28, 20, 1, 'safdfsd\r\nasdfsdafsa\r\nsadfsd', '2018-10-03');
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -474,7 +449,7 @@ CREATE TABLE IF NOT EXISTS `tbl_persona` (
   PRIMARY KEY (`codigo_persona`),
   UNIQUE KEY `id_persona_UNIQUE` (`id_persona`),
   KEY `fk_tbl_persona_tbl_nacionalidades_idx` (`codigo_pais_fk`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `tbl_persona`
@@ -482,8 +457,7 @@ CREATE TABLE IF NOT EXISTS `tbl_persona` (
 
 INSERT INTO `tbl_persona` (`codigo_persona`, `id_persona`, `nombre`, `apellido`, `edad`, `sexo`, `fecha_nacimiento`, `direccion`, `telefono`, `codigo_pais_fk`) VALUES
 (29, '1234', 'José', 'Raudales', '22', 'masculino', '1996-03-14', 'Residencial Francisco Morazán', '33754384', 79),
-(30, '1201199400903', 'Saul', 'Guzman', '23', 'masculino', '1994-12-08', 'No importa', 'No importa', 79),
-(31, '1201199300123', 'Juan', 'Perez', '23', 'masculino', '2018-10-03', 'La Paz, La Paz', '12345678', 79);
+(34, '1111', 'Master', 'Master', '99', 'masculino', '2018-10-08', 'none', 'none', 79);
 
 -- --------------------------------------------------------
 
@@ -520,7 +494,7 @@ CREATE TABLE IF NOT EXISTS `tbl_solicitud_acceso` (
   `estatus_acceso` int(11) NOT NULL,
   PRIMARY KEY (`codigo_solicitud_acceso`),
   KEY `fk_tbl_solicitud_acceso_tbl_empleados1_idx` (`codigo_empleado_fk`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `tbl_solicitud_acceso`
@@ -528,8 +502,7 @@ CREATE TABLE IF NOT EXISTS `tbl_solicitud_acceso` (
 
 INSERT INTO `tbl_solicitud_acceso` (`codigo_solicitud_acceso`, `codigo_empleado_fk`, `estatus_acceso`) VALUES
 (25, 26, 1),
-(26, 27, 1),
-(27, 28, 1);
+(30, 31, 1);
 
 -- --------------------------------------------------------
 

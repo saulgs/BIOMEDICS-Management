@@ -545,7 +545,8 @@ $("#btn-generar-equipo").click(function(){
                         <div class="form-group row">
                           <label class="col-sm-2 col-form-label">Código de hospital</label>
                           <div class="col-sm-3">
-                              <input type="text" id="txt-ch-${fieldTool}" class="form-control" name="ch" onkeyup="mayusVal('txt-ch-${fieldTool}')" required>
+                              <input type="text" id="txt-ch-${fieldTool}" class="form-control invalido" name="ch" onkeyup="mayusVal('txt-ch-${fieldTool}')" onchange="cmprCH('txt-ch-${fieldTool}', 'aviso-ch-${fieldTool}', this.value)" required>
+                              <span id="aviso-ch-${fieldTool}"></span>
                           </div>
                           <label class="col-sm-2 col-form-label">Modo de funcionamiento</label>
                           <div class="col-sm-3">
@@ -578,25 +579,30 @@ function guardarEquipo(x){
     $(document).off('submit');
 
     $(document).one('submit', function() {
-        var id = "#ceq-" + x;
-        var parametros = $(id).serialize();
+        var txt = "#txt-ch-" + x;
+        if($(txt).hasClass("valido")){
+            var id = "#ceq-" + x;
+            var parametros = $(id).serialize();
 
-        $.ajax({
-            url:"/bosses/ingresar-equipo",
-            data:parametros,
-            method:"POST",
-            dataType:"json",
-            success: function(respuesta){
-                //console.log(respuesta);
-                if(respuesta.affectedRows > 0){
-                    $(id).html(`<h2>Equipo guardado con éxito</h2>`);
-                    $(id).delay(3000).fadeOut(200);
+            $.ajax({
+                url:"/bosses/ingresar-equipo",
+                data:parametros,
+                method:"POST",
+                dataType:"json",
+                success: function(respuesta){
+                    //console.log(respuesta);
+                    if(respuesta.affectedRows > 0){
+                        $(id).html(`<h2>Equipo guardado con éxito</h2>`);
+                        $(id).delay(3000).fadeOut(200);
+                    }
+                },
+                error: function (e) {
+                    alert("Ocurrió el siguiente error:"+JSON.stringify(e));
                 }
-            },
-            error: function (e) {
-                alert("Ocurrió el siguiente error:"+JSON.stringify(e));
-            }
-        });        
+            });
+        } else {
+            alert("Revise el código de hospital");
+        }        
         return false;
     });
 }
@@ -1068,4 +1074,31 @@ function cerrarEquipo(){
 function mayusVal(id){
     var field = document.getElementById(id);
     field.value = field.value.toUpperCase();
+}
+
+function cmprCH(field, span, value){
+    var id = "#" + field;
+    var ad = "#" + span;
+    var parametros = "ch=" + value;
+
+    $.ajax({
+        url:"/bosses/comprobar-ch",
+        data: parametros,
+        method:"POST",
+        dataType:"json",
+        success: function(respuesta){
+            //console.log(respuesta);
+            if(respuesta.length == 0){
+                $(id).removeClass("invalido").addClass("valido");
+                $(ad).html(`<small class="form-text text-muted">Código válido.</small>`);
+            } else {
+                $(id).removeClass("valido").addClass("invalido");
+                $(id).val("");
+                $(ad).html(`<small class="form-text text-muted">Código existe, por favor ingrese uno diferente.</small>`);
+            }
+        },
+        error: function (e) {
+            alert("Ocurrió el siguiente error: "+JSON.stringify(e));
+        }
+    });
 }

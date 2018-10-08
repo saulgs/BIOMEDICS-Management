@@ -354,4 +354,13 @@ router.post("/eliminar-equipo", urlEncodeParser, function(req, res){
 
 });
 
+router.post('/comprobar-ch', urlEncodeParser, function(req, res){
+    sql = `SELECT codigo_hospital FROM tbl_equipo_medico WHERE codigo_hospital = ?`;
+    values = [req.body.ch];
+
+    realizarQuery(sql, values, function(response){
+        res.send(response);
+    });
+});
+
 module.exports = router;

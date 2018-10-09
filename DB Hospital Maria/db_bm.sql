@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 08-10-2018 a las 08:45:03
+-- Tiempo de generación: 09-10-2018 a las 17:09:43
 -- Versión del servidor: 5.7.19
 -- Versión de PHP: 5.6.31
 
@@ -21,6 +21,9 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `db_bm`
 --
+DROP DATABASE IF EXISTS `db_bm`;
+CREATE DATABASE IF NOT EXISTS `db_bm` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `db_bm`;
 
 -- --------------------------------------------------------
 
@@ -64,15 +67,15 @@ CREATE TABLE IF NOT EXISTS `tbl_datos_tecnicos` (
   `potencia` varchar(10) NOT NULL,
   `corriente_max` varchar(10) NOT NULL,
   `frec_electrica` varchar(10) NOT NULL,
-  `modo_funcionamiento` varchar(30) NOT NULL,
-  `parametro_medicion` varchar(20) NOT NULL,
+  `modo_funcionamiento` varchar(90) NOT NULL,
+  `parametro_medicion` varchar(90) NOT NULL,
   PRIMARY KEY (`codigo_datos_tecnicos`),
   KEY `fk_tbl_datos_tecnicos_tbl_tipo_alimentacion1_idx` (`codigo_tipo_alimentacion_fk`),
   KEY `fk_tbl_datos_tecnicos_tbl_relacion_paciente1_idx` (`codigo_relacion_paciente_fk`),
   KEY `fk_tbl_datos_tecnicos_tbl_funcion_maquina1_idx` (`codigo_funcion_maquina_fk`),
   KEY `fk_tbl_datos_tecnicos_tbl_uso_especifico1_idx` (`codigo_uso_especifico_fk`),
   KEY `fk_tbl_datos_tecnicos_tbl_mov_equipo1_idx` (`codigo_mov_equipo_fk`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -145,7 +148,7 @@ CREATE TABLE IF NOT EXISTS `tbl_equipo_medico` (
   PRIMARY KEY (`codigo_equipo_medico`),
   KEY `fk_tbl_equipo_medico_tbl_tipo_manual1_idx` (`codigo_tipo_manual_fk`),
   KEY `fk_tbl_equipo_medico_tbl_datos_tecnicos1_idx` (`codigo_datos_tecnicos_fk`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -188,7 +191,7 @@ CREATE TABLE IF NOT EXISTS `tbl_mantenimiento` (
   KEY `fk_tbl_mantenimiento_tbl_emplados1_idx` (`codigo_empleado_fk`),
   KEY `fk_tbl_mantenimiento_tbl_equipo_medico1_idx` (`codigo_equipo_medico_fk`),
   KEY `fk_tbl_mantenimiento_tbl_tipo_mantenimiento1_idx` (`codigo_tipo_mantenimiento_fk`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 

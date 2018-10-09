@@ -408,7 +408,7 @@ $("#btn-generar-equipo").click(function(){
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">Nombre</label>
                             <div class="col-sm-3">
-                                <input type="text" id="txt-nombre-${fieldTool}" name="nombre" class="form-control" required>
+                                <input type="text" id="txt-nombre-${fieldTool}" name="nombre" class="form-control" maxlength="80" required>
                             </div>
                           <label class="col-sm-2 col-form-label">Tipo alimentación</label>
                           <div class="col-sm-3">
@@ -425,7 +425,7 @@ $("#btn-generar-equipo").click(function(){
                         <div class="form-group row">
                           <label class="col-sm-2 col-form-label">Modelo</label>
                           <div class="col-sm-3">
-                              <input type="text" id="txt-modelo-${fieldTool}" class="form-control" name="modelo" required>
+                              <input type="text" id="txt-modelo-${fieldTool}" class="form-control" name="modelo" maxlength="40" required>
                           </div>
                           <label class="col-sm-2 col-form-label">Relación paciente</label>
                           <div class="col-sm-3">
@@ -461,7 +461,7 @@ $("#btn-generar-equipo").click(function(){
                         <div class="form-group row">
                           <label class="col-sm-2 col-form-label">Serie</label>
                           <div class="col-sm-3">
-                              <input type="text" id="txt-serie-${fieldTool}" class="form-control" name="serie" required>
+                              <input type="text" id="txt-serie-${fieldTool}" class="form-control" name="serie" maxlength="40" required>
                           </div>
                           <label class="col-sm-2 col-form-label">Uso específico</label>
                           <div class="col-sm-3">
@@ -480,7 +480,7 @@ $("#btn-generar-equipo").click(function(){
                         <div class="form-group row">
                           <label class="col-sm-2 col-form-label">Marca</label>
                           <div class="col-sm-3">
-                              <input type="text" id="txt-marca-${fieldTool}" class="form-control" name="marca" required>
+                              <input type="text" id="txt-marca-${fieldTool}" class="form-control" name="marca" maxlength="45" required>
                           </div>
                           <label class="col-sm-2 col-form-label">Movimiento de equipo</label>
                           <div class="col-sm-3">
@@ -495,7 +495,7 @@ $("#btn-generar-equipo").click(function(){
                         <div class="form-group row">
                           <label class="col-sm-2 col-form-label">Ubicación</label>
                           <div class="col-sm-3">
-                              <input type="text" id="txt-ubicacion-${fieldTool}" class="form-control" name="ubicacion" required>
+                              <input type="text" id="txt-ubicacion-${fieldTool}" class="form-control" name="ubicacion" maxlength="140" required>
                           </div>
                           <label class="col-sm-2 col-form-label">Voltaje de trabajo AC</label>
                           <div class="col-sm-3">
@@ -505,7 +505,7 @@ $("#btn-generar-equipo").click(function(){
                         <div class="form-group row">
                           <label class="col-sm-2 col-form-label">Tipo de adquisición</label>
                           <div class="col-sm-3">
-                              <input type="text" id="txt-ta-${fieldTool}" class="form-control" name="tad" required>
+                              <input type="text" id="txt-ta-${fieldTool}" class="form-control" name="tad" maxlength="40" required>
                           </div>
                           <label class="col-sm-2 col-form-label">Voltaje de trabajo DC</label>
                           <div class="col-sm-3">
@@ -515,7 +515,7 @@ $("#btn-generar-equipo").click(function(){
                         <div class="form-group row">
                           <label class="col-sm-2 col-form-label">Fabricante</label>
                           <div class="col-sm-3">
-                              <input type="text" id="txt-fabricante-${fieldTool}" class="form-control" name="fab" required>
+                              <input type="text" id="txt-fabricante-${fieldTool}" class="form-control" name="fab" maxlength="40" required>
                           </div>
                           <label class="col-sm-2 col-form-label">Potencia</label>
                           <div class="col-sm-3">
@@ -525,7 +525,7 @@ $("#btn-generar-equipo").click(function(){
                         <div class="form-group row">
                           <label class="col-sm-2 col-form-label">Distribuidor</label>
                           <div class="col-sm-3">
-                              <input type="text" id="txt-dis-${fieldTool}" class="form-control" name="dist" required>
+                              <input type="text" id="txt-dis-${fieldTool}" class="form-control" name="dist" maxlength="40" required>
                           </div>
                           <label class="col-sm-2 col-form-label">Corriente máxima</label>
                           <div class="col-sm-3">
@@ -545,18 +545,18 @@ $("#btn-generar-equipo").click(function(){
                         <div class="form-group row">
                           <label class="col-sm-2 col-form-label">Código de hospital</label>
                           <div class="col-sm-3">
-                              <input type="text" id="txt-ch-${fieldTool}" class="form-control invalido" name="ch" onkeyup="mayusVal('txt-ch-${fieldTool}')" onchange="cmprCH('txt-ch-${fieldTool}', 'aviso-ch-${fieldTool}', this.value)" required>
+                              <input type="text" id="txt-ch-${fieldTool}" class="form-control invalido" name="ch" onkeyup="mayusVal('txt-ch-${fieldTool}')" onchange="cmprCH('txt-ch-${fieldTool}', 'aviso-ch-${fieldTool}', this.value)" maxlength="43" required>
                               <span id="aviso-ch-${fieldTool}"></span>
                           </div>
                           <label class="col-sm-2 col-form-label">Modo de funcionamiento</label>
                           <div class="col-sm-3">
-                              <input type="text" id="txt-mf-${fieldTool}" class="form-control" name="mf" required>
+                              <input type="text" id="txt-mf-${fieldTool}" class="form-control" name="mf" maxlength="80" required>
                           </div>
                         </div>
                         <div class="form-group row">
                           <label class="col-sm-2 col-form-label">Parámetro de medición</label>
                           <div class="col-sm-3">
-                              <input type="text" id="txt-pm-${fieldTool}" class="form-control" name="pm" required>
+                              <input type="text" id="txt-pm-${fieldTool}" class="form-control" name="pm" maxlength="80" required>
                           </div>
                         </div>
                         <input type="submit" role="button" class="btn btn-success" onclick="guardarEquipo(${fieldTool})"  value="Guardar equipo">
@@ -793,7 +793,7 @@ var promise = $.ajax({
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Nombre</label>
                                     <div class="col-sm-3">
-                                        <input type="text" id="txt-nombre-eoe" name="nombre" class="form-control" required>
+                                        <input type="text" id="txt-nombre-eoe" name="nombre" class="form-control" maxlength="80" required>
                                     </div>
                                 <label class="col-sm-2 col-form-label">Tipo alimentación</label>
                                 <div class="col-sm-3">
@@ -810,7 +810,7 @@ var promise = $.ajax({
                                 <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Modelo</label>
                                 <div class="col-sm-3">
-                                    <input type="text" id="txt-modelo-eoe" class="form-control" name="modelo" required>
+                                    <input type="text" id="txt-modelo-eoe" class="form-control" name="modelo" maxlength="40" required>
                                 </div>
                                 <label class="col-sm-2 col-form-label">Relación paciente</label>
                                 <div class="col-sm-3">
@@ -846,7 +846,7 @@ var promise = $.ajax({
                                 <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Serie</label>
                                 <div class="col-sm-3">
-                                    <input type="text" id="txt-serie-eoe" class="form-control" name="serie" required>
+                                    <input type="text" id="txt-serie-eoe" class="form-control" name="serie" maxlength="40" required>
                                 </div>
                                 <label class="col-sm-2 col-form-label">Uso específico</label>
                                 <div class="col-sm-3">
@@ -865,7 +865,7 @@ var promise = $.ajax({
                                 <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Marca</label>
                                 <div class="col-sm-3">
-                                    <input type="text" id="txt-marca-eoe" class="form-control" name="marca" required>
+                                    <input type="text" id="txt-marca-eoe" class="form-control" name="marca" maxlength="45" required>
                                 </div>
                                 <label class="col-sm-2 col-form-label">Movimiento de equipo</label>
                                 <div class="col-sm-3">
@@ -880,7 +880,7 @@ var promise = $.ajax({
                                 <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Ubicación</label>
                                 <div class="col-sm-3">
-                                    <input type="text" id="txt-ubicacion-eoe" class="form-control" name="ubicacion" required>
+                                    <input type="text" id="txt-ubicacion-eoe" class="form-control" name="ubicacion" maxlength="140" required>
                                 </div>
                                 <label class="col-sm-2 col-form-label">Voltaje de trabajo AC</label>
                                 <div class="col-sm-3">
@@ -890,7 +890,7 @@ var promise = $.ajax({
                                 <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Tipo de adquisición</label>
                                 <div class="col-sm-3">
-                                    <input type="text" id="txt-ta-eoe" class="form-control" name="tad" required>
+                                    <input type="text" id="txt-ta-eoe" class="form-control" name="tad" maxlength="40" required>
                                 </div>
                                 <label class="col-sm-2 col-form-label">Voltaje de trabajo DC</label>
                                 <div class="col-sm-3">
@@ -900,7 +900,7 @@ var promise = $.ajax({
                                 <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Fabricante</label>
                                 <div class="col-sm-3">
-                                    <input type="text" id="txt-fabricante-eoe" class="form-control" name="fab" required>
+                                    <input type="text" id="txt-fabricante-eoe" class="form-control" name="fab" maxlength="40" required>
                                 </div>
                                 <label class="col-sm-2 col-form-label">Potencia</label>
                                 <div class="col-sm-3">
@@ -910,7 +910,7 @@ var promise = $.ajax({
                                 <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Distribuidor</label>
                                 <div class="col-sm-3">
-                                    <input type="text" id="txt-dis-eoe" class="form-control" name="dist" required>
+                                    <input type="text" id="txt-dis-eoe" class="form-control" name="dist" maxlength="40" required>
                                 </div>
                                 <label class="col-sm-2 col-form-label">Corriente máxima</label>
                                 <div class="col-sm-3">
@@ -930,17 +930,17 @@ var promise = $.ajax({
                                 <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Código de hospital</label>
                                 <div class="col-sm-3">
-                                    <input type="text" id="txt-ch-eoe" class="form-control" name="ch" onkeyup="mayusVal('txt-ch-eoe')" required>
+                                    <input type="text" id="txt-ch-eoe" class="form-control" name="ch" onkeyup="mayusVal('txt-ch-eoe')" maxlength="43" required>
                                 </div>
                                 <label class="col-sm-2 col-form-label">Modo de funcionamiento</label>
                                 <div class="col-sm-3">
-                                    <input type="text" id="txt-mf-eoe" class="form-control" name="mf" required>
+                                    <input type="text" id="txt-mf-eoe" class="form-control" name="mf" maxlength="80" required>
                                 </div>
                                 </div>
                                 <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Parámetro de medición</label>
                                 <div class="col-sm-3">
-                                    <input type="text" id="txt-pm-eoe" class="form-control" name="pm" required>
+                                    <input type="text" id="txt-pm-eoe" class="form-control" name="pm" maxlength="80" required>
                                 </div>
                                 </div>
                                 <input type="submit" role="button" class="btn btn-success" onclick="actualizarEquipo()"  value="Actualizar equipo">
